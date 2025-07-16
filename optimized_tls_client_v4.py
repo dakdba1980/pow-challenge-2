@@ -217,7 +217,7 @@ class OptimizedTLSClient:
         """Solve using multiprocessing"""
         num_workers = cpu_count
         print(f"Using {num_workers} processes for proof-of-work")        
-        batch_size = 100000  # Each worker processes this many hashes before returning
+        batch_size = 1000000  # Each worker processes this many hashes before returning
         
         try:
             with ProcessPoolExecutor(max_workers=num_workers) as executor:
