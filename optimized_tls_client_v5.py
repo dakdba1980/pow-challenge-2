@@ -249,7 +249,8 @@ class OptimizedTLSClient:
         
         cpu_count = multiprocessing.cpu_count()
         # Use more workers for high difficulty
-        num_workers = min(cpu_count * 2, 32)
+        # num_workers = min(cpu_count * 2, 32)
+        num_workers = cpu_count
         
         # Each worker searches a large space before returning
         search_space_per_worker = 10_000_000  # 10M hashes per batch
@@ -261,7 +262,7 @@ class OptimizedTLSClient:
         estimated_attempts = 16 ** int(difficulty)
         print(f"Expected attempts for difficulty {difficulty}: {estimated_attempts:,}")
         
-        timeout = 3600  # 1 hour timeout for difficulty 9
+        timeout = 7200  # 2 hour timeout for difficulty 9
         round_number = 0
         total_hashes = 0
         
@@ -295,7 +296,7 @@ class OptimizedTLSClient:
                                 total_hashes += round_hashes
                                 rate = total_hashes / total_time if total_time > 0 else 0
                                 
-                                print(f"\n🎉 SOLUTION FOUND! 🎉")
+                                print(f"\nSOLUTION FOUND!")
                                 print(f"Round: {round_number}")
                                 print(f"Worker: {worker_id}")
                                 print(f"Time: {total_time:.2f} seconds")
@@ -307,10 +308,10 @@ class OptimizedTLSClient:
                                 verification_hash = self.sha1_hash_optimized(authdata + result)
                                 target = '0' * int(difficulty)
                                 if verification_hash.startswith(target):
-                                    print("✅ Solution verified!")
+                                    print("Solution verified!")
                                     return result
                                 else:
-                                    print("❌ Solution verification failed!")
+                                    print("Solution verification failed!")
                                     continue
                                     
                         except Exception as e:
@@ -336,7 +337,7 @@ class OptimizedTLSClient:
                             estimated_remaining = (estimated_attempts - total_hashes) / avg_rate
                             print(f"Progress: {progress:.6f}% | Est. remaining: {estimated_remaining:.0f}s")
                 
-                print(f"\n⏰ Timeout reached after {timeout}s")
+                print(f"\nTimeout reached after {timeout}s")
                 return None
                 
         except Exception as e:
@@ -362,7 +363,7 @@ class OptimizedTLSClient:
             self.authdata = args[1]
             difficulty = args[2]
             
-            print(f"\n🔥 STARTING PROOF-OF-WORK CHALLENGE 🔥")
+            print(f"\nSTARTING PROOF-OF-WORK CHALLENGE")
             print(f"Authdata: {self.authdata}")
             print(f"Difficulty: {difficulty}")
             
@@ -371,11 +372,11 @@ class OptimizedTLSClient:
                 print(f"Sending solution: {solution}")
                 return self.write_line(solution)
             else:
-                print("❌ Failed to solve proof-of-work")
+                print("Failed to solve proof-of-work")
                 return False
         
         elif cmd == "END":
-            print("✅ Data submission confirmed")
+            print("Data submission confirmed")
             return self.write_line("OK")
         
         elif cmd == "NAME":
@@ -428,7 +429,7 @@ class OptimizedTLSClient:
             return False
         
         try:
-            print("🚀 Starting protocol communication...")
+            print("Starting protocol communication...")
             
             while True:
                 line = self.read_line()
@@ -436,14 +437,14 @@ class OptimizedTLSClient:
                     print("Connection closed by server")
                     break
                 
-                print(f"📨 Received: {line}")
+                print(f"Received: {line}")
                 args = line.split(' ')
                 
                 if not self.handle_command(args):
                     break
                 
                 if args[0] == "END":
-                    print("🎉 Protocol completed successfully!")
+                    print("Protocol completed successfully!")
                     break
             
             return True
@@ -476,16 +477,17 @@ def main():
         key_path=args.key
     )
     
-    print("🚀 === ULTRA-OPTIMIZED TLS PROTOCOL CLIENT ===")
-    print(f"🎯 Optimized for high-difficulty proof-of-work challenges")
-    print(f"🔗 Connecting to {args.host}:{args.port}")
+    print("=== ULTRA-OPTIMIZED TLS PROTOCOL CLIENT ===")
+    print(f"Optimized for high-difficulty proof-of-work challenges")
+    print(f"Connecting to {args.host}:{args.port}")
     
     if client.run():
-        print("✅ Client completed successfully")
+        print("Client completed successfully")
         sys.exit(0)
     else:
-        print("❌ Client failed")
+        print("Client failed")
         sys.exit(1)
 
 if __name__ == "__main__":
     main()
+
