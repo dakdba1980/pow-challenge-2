@@ -29,35 +29,3 @@ python optimized_tls_client_v2.py --cert client.crt --key client.key
 python optimized_tls_client_v2.py --host 18.202.148.130 --port 8083 --cert client.crt --key client.key
 ```
 
-## Execution
-
-```python optimized_tls_client_v2.py --cert client.crt --key client.key
-=== TLS Protocol Client ===
-Connecting to 18.202.148.130:3336
-Connected to 18.202.148.130:3336
-Starting protocol communication...
-Received: HELO
-Received: POW ifPyhyPumvVAckNGvxsmedvarcAWetiojsNCUMfRayoWpnIRVRqEasqupvdEUWxt 6
-Solving proof-of-work (difficulty: 6)...
-CPU cores available: 16
-Using 16 processes for proof-of-work
-Proof-of-work solved in 7.26 seconds
-Total hashes: 12,636 (rate: 1,742 H/s)
-Solution verified: {S<BR
-Received: NAME RjLi
-Received: MAILNUM XTlj
-Received: MAIL1 FIFp
-Received: COUNTRY KxXO
-Received: SKYPE vKzR
-Received: BIRTHDATE cxfS
-Received: ADDRNUM jMSf
-Received: ADDRLINE2 CozU
-Received: ADDRLINE1 mYsb
-Received: ADDRLINE3 swFT
-Received: ADDRLINE4 qYiS
-Received: END
-Data submission confirmed
-Protocol completed successfully
-Connection closed
-Client completed successfully
-```
