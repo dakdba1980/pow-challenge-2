@@ -371,7 +371,7 @@ class UltraFastTLSClient:
         total_attempts = 0
         
         try:
-            with ProcessPoolExecutor(max_workers=61) as executor:
+            with ProcessPoolExecutor(max_workers=num_workers) as executor:
                 # Ultra-aggressive timeouts
                 round_timeout = 30  # 30 seconds per round
                 max_total_time = 300  # 5 minutes total
